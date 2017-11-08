@@ -11,8 +11,8 @@ using namespace std;
 
 enum Cursor_Type		// тип курсора
 {
-	CursorType_Vert,
 	CursorType_Horz,
+	CursorType_Vert,
 };
 
 class Cursor
@@ -102,7 +102,7 @@ public:
 				cout << "\nВведите размер курсора\n";
 				cin >> size;
 			} while (size<0 || size >15);
-			Init(x, y, static_cast<Cursor_Type>(k), size);
+			Init(x, y, static_cast<Cursor_Type>(k-1), size);
 		}
 
 		string StringToInt(unsigned int x)   // конвертирование в строку
@@ -142,7 +142,7 @@ public:
 				cin >> k;
 			} while (k != 1 && k != 2);
 
-			switch (k)
+			/*switch (k)
 			{
 			case 1:
 				SetType(CursorType_Horz);
@@ -150,7 +150,8 @@ public:
 			case 2:
 				SetType(CursorType_Vert);
 				break;
-			}
+			}*/
+			SetType(static_cast<Cursor_Type>(k-1));
 		}
 
 		void ChangeSize()					// изменение размера курсора
@@ -165,15 +166,13 @@ public:
 
 		void DampingCursor()	// гашение курсора
 		{
-			while (m_Size >= 0){
-				m_Size--;
-			}
+			m_Size=-1;
 		}
 
-		void RecoveryCursor()	//восстновление курсоа
+		void RecoveryCursor()	//восстановление курсоа
 		{
-			while (m_Size < 0){
-				m_Size++;
+			if (m_Size < 0){
+				m_Size = 0;
 			}
 		}
 
@@ -227,6 +226,7 @@ int main()
 			cout << "Некорретный ввод " << endl;
 			break;
 		}
+		getchar();
 		getchar();
 
 	}
